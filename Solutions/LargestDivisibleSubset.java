@@ -19,25 +19,36 @@ Output: [1,2,4,8]
 //Solution:
 
 
-class Solution(object):
-    def largestDivisibleSubset(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        n = len(nums)
-        if n<=1:
-            return nums
-        nums.sort()
-        dp = [(0,0)] * n
-        dp[0] = (1,0)
-        manIndex, maxVal = 0,1
-        for i in range(1,n):
-            dp[i] = max((dp[j][0] + 1, j) for j in range(i + 1) if nums[i] % nums[j] is 0)
-            if dp[i] > maxVal:
-                maxIndex, maxVal = i, dp[i]
-        i, lds = maxIndex, [nums[maxIndex]]
-        while i!= dp[i][1]:
-            i = dp[i][1]
-            lds.append(nums[i])
-        return lds
+class Solution {
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+      List<Integer> result = new ArrayList<Integer>();
+        if(nums.length == 0) return result;
+        
+        Arrays.sort(nums);
+        int[] count = new int[nums.length];
+        Arrays.fill(count, 1);
+        
+        for(int i = 1; i < nums.length; i++){
+            for(int j = i - 1; j >= 0; j--){
+                if(nums[i] % nums[j] == 0){
+                    count[i] = Math.max(count[i], count[j] + 1);
+                }
+            }
+        }
+        
+        int maxIndex = 0;
+        for(int i = 1; i < nums.length; i++){
+            maxIndex = count[i] > count[maxIndex] ? i : maxIndex;
+        }
+        int temp = nums[maxIndex];
+        int currentCount = count[maxIndex];
+        for(int i = maxIndex; i >= 0; i--){
+            if(temp % nums[i] == 0 && count[i] == currentCount){
+                result.add(nums[i]);
+                temp = nums[i];
+                currentCount--;
+            }
+        }
+        return result;
+    }
+}
