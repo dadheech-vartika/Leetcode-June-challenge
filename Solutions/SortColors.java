@@ -14,3 +14,34 @@ A rather straight forward solution is a two-pass algorithm using counting sort.
 First, iterate the array counting number of 0's, 1's, and 2's, then overwrite array with total number of 0's, then 1's and followed by 2's.
 Could you come up with a one-pass algorithm using only constant space?
 */
+
+
+//Solution
+
+
+class Solution {
+    public void sortColors(int[] nums) {
+        int n = nums.length;
+        int low = 0, mid = 0, high = n - 1;
+        while(mid <= high){
+            if(nums[mid] == 0){
+                swap(nums,low,mid);
+                low++;
+                mid++;
+            }
+            else if(nums[mid] == 1){
+                mid++;
+            }
+            else if(nums[mid] == 2){
+                swap(nums, mid, high);
+                high -- ;
+            }
+        }
+        
+    }
+    public void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
