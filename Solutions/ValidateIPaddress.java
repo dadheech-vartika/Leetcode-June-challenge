@@ -1,3 +1,4 @@
+/*
 Write a function to check whether an input string is a valid IPv4 address or IPv6 address or neither.
 
 IPv4 addresses are canonically represented in dot-decimal notation, which consists of four decimal numbers, each ranging from 0 to 255, separated by dots ("."), e.g.,172.16.254.1;
@@ -30,3 +31,7 @@ Input: "256.256.256.256"
 Output: "Neither"
 
 Explanation: This is neither a IPv4 address nor a IPv6 address.
+*/
+
+//Solution:
+
